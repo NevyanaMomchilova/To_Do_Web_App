@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}Tasks Manager{% endblock %}
+
+{% block content %}
+
+<!--    Add new task form-->
+    <div class="container">
+        <div class="jumbotron">
+            <h3>Create New Task:</h3>
+            <form class="form-inline" method="POST">
+                <div class="form-group-item">
+                    {% csrf_token %}
+                    {{ form.task_name }}
+                    <button class="btn btn-info" type="submit">Add</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+<!--    Show all of the created tasks as well as button "delete" for each one of them-->
+     <div class="container">
+        <div class="jumbotron">
+            <h3>Your Current Tasks:</h3>
+            {% if all_tasks %}
+                <ol class="list-group">
+                    {% for task in all_tasks %}
+                        <li class="list-group-item">
+                                {{ task.task_name }}
+                                <a href="{% url 'tasks:delete' task.id %}">
+                                    <button class="btn btn-info" type="button">Delete</button>
+                                </a>
+                        </li>
+                    {% endfor %}
+                </ol>
+            {% else %}
+                <h4>You have no tasks</h4>
+            {% endif %}
+        </div>
+    </div>
+
+{% endblock %}

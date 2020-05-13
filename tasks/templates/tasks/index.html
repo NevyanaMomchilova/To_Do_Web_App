@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block title %}To Do Web App{% endblock %}
+
+{% block content %}
+    <div class="container" align="center">
+        <div class="jumbotron">
+            <h1>Welcome to your To-Do Page</h1>
+
+        </div>
+    </div>
+
+<!--    Shows all created tasks and have a button to open the manager page
+where you can create and delete the tasks-->
+
+    <div class="container">
+        <div class="jumbotron">
+            <a href="{% url 'tasks:tasks_manager' %}"><button type="button" class="btn btn-info">Manage your tasks</button></a>
+            <!--            create space between the elements-->
+            <p></p>
+
+            {% if all_tasks %}
+                <ol class="list-group">
+                    {% for task in all_tasks %}
+                        <li class="list-group-item">{{ task.task_name }}</li>
+                    {% endfor %}
+                </ol>
+            {% else %}
+                <h4>You have no tasks</h4>
+            {% endif %}
+        </div>
+
+    </div>
+
+{% endblock %}
+
+
